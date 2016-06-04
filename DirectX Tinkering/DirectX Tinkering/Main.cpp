@@ -27,6 +27,8 @@ GameSprite *player;
 //WinMain function set up a window and enter a message loop
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	MessageBox(NULL, "Left off on DirectX Tutorial 3 @ 23:00 minutes", NULL, NULL);
+
 	HWND hWnd;
 	if (GenerateWindow(hInstance, nCmdShow, "Drawing Sprites", "Drawing a PNG Image as a Sprite", 1280, 720, hWnd))
 	{
