@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\GraphicsDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\GraphicsDevice.h">
+    <ClInclude Include="GameSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameSprite.h">
+    <ClInclude Include="GraphicsDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
