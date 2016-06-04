@@ -112,9 +112,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\GraphicsDevice.cpp" />
     <ClCompile Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\Main.cpp" />
+    <ClCompile Include="GameSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\GraphicsDevice.h" />
+    <ClInclude Include="GameSprite.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -21,9 +21,15 @@
     <ClCompile Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameSprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\Win32 Experimenting\Win32 Experimenting\GraphicsDevice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
