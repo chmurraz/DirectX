@@ -21,13 +21,14 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 void Update(float gameTime);
 void Draw(GraphicsDevice *gDevice, float gameTime);
 
-//	Global Player SPrites
+//	Global Player SPrites... will wrap all this into a game engine class later... like XMA
 GameSprite *player;
+GameSprite *player2;
 
 //WinMain function set up a window and enter a message loop
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	MessageBox(NULL, "Left off on DirectX Tutorial 3 @ 23:00 minutes", NULL, NULL);
+	MessageBox(NULL, "Finished tutorial 3.  Having trouble with sprite rendering", NULL, NULL);
 
 	HWND hWnd;
 	if (GenerateWindow(hInstance, nCmdShow, "Drawing Sprites", "Drawing a PNG Image as a Sprite", 1280, 720, hWnd))
@@ -35,30 +36,39 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		MSG msg;
 		GraphicsDevice *gDevice = new GraphicsDevice();
 		gDevice->Initialize(hWnd, true);
-		while (true)
+
+		player = new GameSprite(100,-100);
+		player2 = new GameSprite(80, 200);
+		if (player->Initialize(gDevice->device, "Small-mario.png", 381, 480) 
+			&& player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 		{
-
-			//	PeekMessage section controls if window updates (it doesn't) while the window is being dragged around by the user
-			while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+			while (true)
 			{
-				TranslateMessage(&msg);
 
-				DispatchMessage(&msg);
+				//	PeekMessage section controls if window updates (it doesn't) while the window is being dragged around by the user
+				while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+				{
+					TranslateMessage(&msg);
+
+					DispatchMessage(&msg);
+				}
+
+				if (msg.message == WM_QUIT) break;
+				else
+				{
+					//Update and draw our game (written after creating GraphicsDevice class)
+					Update(0.0f);
+					Draw(gDevice, 0.0f);
+				}
 			}
 
-			if (msg.message == WM_QUIT) break;
-			else
-			{
-				//Update and draw our game (written after creating GraphicsDevice class)
-				Update(0.0f);
-				Draw(gDevice, 0.0f);
-			}
+			//	Added this line in tutorial 2
+			delete gDevice;
+			delete player;
+			delete player2;
+
+			return msg.wParam;
 		}
-
-		//	Added this line in tutorial 2
-		delete gDevice;
-
-		return msg.wParam;
 	}
 	return 0;
 }
@@ -123,6 +133,13 @@ void Draw(GraphicsDevice *gDevice, float gameTime)
 	//	Clear, Begin and Present in that order
 	gDevice->Clear(D3DCOLOR_XRGB(0, 100, 100));
 	gDevice->Begin();
+
+	//	Draw logic here
+	if (player && player->IsInitialized())
+		player->Draw(gameTime);
+	if (player2 && player2->IsInitialized())
+		player2->Draw(gameTime);
+
 	gDevice->End();
 	gDevice->Present();
 }

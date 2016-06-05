@@ -10,7 +10,7 @@ GameSprite::GameSprite()
 	//	When the color is set to white, what you see is exactly what the image looks like
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);	//	White and 100% visible
 
-	//	We are not initializedy et
+	//	We are not initialized yet
 	initialized = false;
 }
 
@@ -24,7 +24,7 @@ GameSprite::GameSprite(float x, float y)
 	//	When the color is set to white, what you see is exactly what the image looks like
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);	//	White and 100% visible
 
-												//	We are not initializedy et
+	//	We are not initialized yet
 	initialized = false;
 }
 
