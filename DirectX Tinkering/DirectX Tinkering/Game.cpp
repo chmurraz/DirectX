@@ -9,9 +9,10 @@ Game::Game()
 Game::~Game()
 {
 	//	Destructor
-	if (player)	{ delete player; player = 0; }
+	if (player) { delete player; player = 0; }
 	//if (player2) { delete player2; player2 = 0; }
 	if (gDevice) { delete gDevice; gDevice = 0; }
+	if (font) { font->Release(); font = 0; }
 }
 
 bool Game::Initialize(HWND hWnd)
@@ -34,6 +35,15 @@ bool Game::Initialize(HWND hWnd)
 	//{
 	//	return false;
 	//}
+
+	font = NULL;
+	HRESULT hr = D3DXCreateFont(gDevice->device, 22, 0, FW_NORMAL, 1, false, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, FF_DONTCARE, "Arial", &font);
+	if (!SUCCEEDED(hr))
+	{
+		return false;
+	}
+	SetRect(&fRectangle, 0, 0, 500, 300);
+	message = "This is some generic message\nto display on the screen";
 
 	gameTime = new GameTime();
 	if (!gameTime->Initialize())
@@ -93,6 +103,10 @@ void Game::Draw(float gameTime)
 		player->Draw(gameTime);
 	//if (player2)
 	//	player2->Draw(gameTime);
+	if (font)
+	{
+		font->DrawTextA(NULL, message.c_str(), -1, &fRectangle, DT_LEFT, D3DCOLOR_XRGB(0, 0, 0));
+	}
 
 	gDevice->End();
 	gDevice->Present();

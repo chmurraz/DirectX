@@ -23,6 +23,10 @@ private:
 	GamePlayObject *player;
 	//GamePlayObject *player2;
 
+	ID3DXFont *font;
+	RECT fRectangle;
+	std::string message;
+
 	GameTime *gameTime;
 };
 
