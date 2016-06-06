@@ -33,6 +33,12 @@ bool Game::Initialize(HWND hWnd)
 	{
 		return false;
 	}
+
+	gameTime = new GameTime();
+	if (!gameTime->Initialize())
+	{
+		return false;
+	}
 	
 	//	If all are successful, return true.  Determines if game is properly initialized
 	return true;

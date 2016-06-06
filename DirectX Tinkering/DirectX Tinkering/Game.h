@@ -3,6 +3,7 @@
 
 #include "GraphicsDevice.h"
 #include "GamePlayObject.h"
+#include "GameTime.h"
 
 class Game
 {
@@ -21,6 +22,8 @@ private:
 	GraphicsDevice *gDevice;
 	GamePlayObject *player;
 	GamePlayObject *player2;
+
+	GameTime *gameTime;
 };
 
 #endif	/*	GAME_H	*/
