@@ -22,13 +22,14 @@ bool Game::Initialize(HWND hWnd)
 		return false;
 	}
 
-	player = new GamePlayObject(100, 200, (float)M_PI_4, 1.5f, 1.5f);
+	//	Final two arguments are based on number of pixels per second
+	player = new GamePlayObject(100, 200, (float)M_PI_4, 90.0f, 90.0f);
 	if (!player->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
 	}
 
-	player2 = new GamePlayObject(80, 200, 0, 1.5f, 1.5f);
+	player2 = new GamePlayObject(80, 200, 0, 180.0f, 180.0f);
 	if (!player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
@@ -47,10 +48,10 @@ bool Game::Initialize(HWND hWnd)
 void Game::Run()
 {
 	//	Get game time and update + draw.  Will deal with timers later.
-	float gameTime = 0;
+	gameTime->Update();
 
-	Update(gameTime);
-	Draw(gameTime);
+	Update(gameTime->elapsedGameTime);
+	Draw(gameTime->elapsedGameTime);
 }
 
 void Game::Update(float gameTime)

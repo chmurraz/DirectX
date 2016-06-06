@@ -57,8 +57,8 @@ void GamePlayObject::Update(float gameTime)
 {
 	if (status == ObjectStatus::Active)
 	{
-		position.x += velocity.x;
-		position.y += velocity.y;
+		position.x += velocity.x * gameTime;
+		position.y += velocity.y * gameTime;
 		position.z = 0;
 	}
 }
