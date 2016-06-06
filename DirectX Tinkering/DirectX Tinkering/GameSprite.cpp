@@ -86,6 +86,7 @@ void GameSprite::Draw(float gameTime)
 		//	Alphablend allows for transparent pixels
 		sprite->Begin(D3DXSPRITE_ALPHABLEND);
 		sprite->Draw(tex, NULL, NULL, &position, color);
+		sprite->End();
 	}
 }
 

@@ -37,9 +37,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		GraphicsDevice *gDevice = new GraphicsDevice();
 		gDevice->Initialize(hWnd, true);
 
-		player = new GameSprite(100,-100);
+		player = new GameSprite(100,200);
 		player2 = new GameSprite(80, 200);
-		if (player->Initialize(gDevice->device, "Small-mario.png", 381, 480) 
+		if (player->Initialize(gDevice->device, "PlayerPaper.png", 58, 86) 
 			&& player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 		{
 			while (true)
