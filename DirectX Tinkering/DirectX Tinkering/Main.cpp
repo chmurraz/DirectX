@@ -1,3 +1,5 @@
+#define VK_AKEY 0x41
+
 #include <windows.h>
 #include "Game.h"
 
@@ -15,7 +17,7 @@ bool GenerateWindow(HINSTANCE hInstance, int nCmdShow, LPCSTR className, LPCSTR 
 
 //	Another prototype
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-
+bool InitializeInput();
 Game *game;
 
 //WinMain function set up a window and enter a message loop
@@ -24,7 +26,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MessageBox(NULL, "Tutorial 4 @ 14:30 lists cool realign tricks", NULL, NULL);
 
 	HWND hWnd;
-	if (GenerateWindow(hInstance, nCmdShow, "Drawing Sprites", "Drawing a PNG Image as a Sprite", 1280, 720, hWnd))
+	if (GenerateWindow(hInstance, nCmdShow, "Drawing Sprites", "Drawing a PNG Image as a Sprite", 1280, 720, hWnd)
+		&& InitializeInput())
 	{
 		MSG msg;
 		game = new Game();
@@ -91,16 +94,72 @@ bool GenerateWindow(HINSTANCE hInstance, int nCmdShow, LPCSTR className, LPCSTR 
 
 }
 
+bool InitializeInput()
+{
+	RAWINPUTDEVICE rawinput[1];		//	only one input for now, keyboard
+	
+	rawinput[0].usUsagePage = 0x01;
+	rawinput[0].usUsage = 0x06;		//	use 0x02 for mouse
+	rawinput[0].dwFlags = 0;
+	rawinput[0].hwndTarget = 0;
+
+	if (RegisterRawInputDevices(rawinput, 1, sizeof(rawinput[0])) == FALSE)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 //WindowProc - Handles input sent to the window
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
 	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		return 0;
-	}break;
+		{
+			PostQuitMessage(0);
+			return 0;
+		} break;
+
+	//	See Tutorial 9 for more detail on all this stuff in WM_INPUT.  This information appears in the Output window
+	case WM_INPUT:
+		{
+			UINT dwSize;
+			GetRawInputData((HRAWINPUT)lParam, RID_INPUT, NULL, &dwSize, sizeof(RAWINPUTHEADER));
+			LPBYTE lpb = new BYTE[dwSize];
+			if (lpb == NULL)
+			{
+				return 0;
+			}
+
+			GetRawInputData((HRAWINPUT)lParam, RID_INPUT, lpb, &dwSize, sizeof(RAWINPUTHEADER));
+			RAWINPUT* raw = (RAWINPUT*)lpb;
+
+			if (raw->header.dwType == RIM_TYPEKEYBOARD)
+			{
+				if (raw->data.keyboard.Message == WM_KEYDOWN || raw->data.keyboard.Message == WM_SYSKEYDOWN)
+				{
+					std::string information =
+						"Make Code - " + std::to_string(raw->data.keyboard.MakeCode) +
+						"; Flag - " + std::to_string(raw->data.keyboard.Flags) +
+						"; Reserved - " + std::to_string(raw->data.keyboard.Reserved) +
+						"; Extra Information - " + std::to_string(raw->data.keyboard.ExtraInformation) +
+						"; Message - " + std::to_string(raw->data.keyboard.Message) +
+						"; VKey - " + std::to_string(raw->data.keyboard.VKey) +
+						"\n";
+
+					OutputDebugString(information.c_str());
+					//	use VK_SPACE, etc... make new defines at very top of Main.cpp
+					if (raw->data.keyboard.VKey == VK_SPACE)
+					{
+						MessageBox(NULL, "A key was pressed", NULL, NULL);
+					}
+				}
+			}
+
+		} break;
+
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
