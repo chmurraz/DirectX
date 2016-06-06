@@ -30,11 +30,17 @@ bool Game::Initialize(HWND hWnd)
 		return false;
 	}
 
+	player->velocity.x = 2;
+	player->velocity.y = 1;
+
 	player2 = new GameSprite(80, 200);
 	if (!player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
 	}
+
+	player2->velocity.x = 4;
+	player2->velocity.y = -1;
 
 	//	If all are successful, return true.  Determines if game is properly initialized
 	return true;
@@ -51,7 +57,10 @@ void Game::Run()
 
 void Game::Update(float gameTime)
 {
-	//	Update our sprites and other game logic
+	if (player)
+		player->Update(gameTime);
+	if (player2)
+		player2->Update(gameTime);
 }
 
 void Game::Draw(float gameTime)

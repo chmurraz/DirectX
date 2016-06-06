@@ -7,6 +7,9 @@
 class GameSprite
 {
 public:
+	//	Attributes
+	D3DXVECTOR3 velocity;
+
 	//	Constructor and Destructor
 	GameSprite();
 	GameSprite(float x, float y);
