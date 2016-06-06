@@ -1,6 +1,5 @@
 #include <windows.h>
-#include "GraphicsDevice.h"
-#include "GameSprite.h"
+#include "Game.h"
 
 //	Download and install the Microsoft SDK for DirectX (June 2010 build)
 //	Debug | Win32 --> Microsoft.Cpp.Win32.user
@@ -17,30 +16,20 @@ bool GenerateWindow(HINSTANCE hInstance, int nCmdShow, LPCSTR className, LPCSTR 
 //	Another prototype
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-//	UPDATE and DRAW functions (written when GraphicsDevice class was written)
-void Update(float gameTime);
-void Draw(GraphicsDevice *gDevice, float gameTime);
-
-//	Global Player SPrites... will wrap all this into a game engine class later... like XMA
-GameSprite *player;
-GameSprite *player2;
+Game *game;
 
 //WinMain function set up a window and enter a message loop
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	MessageBox(NULL, "Finished tutorial 3.  Having trouble with sprite rendering", NULL, NULL);
+	MessageBox(NULL, "Tutorial 4 @ 14:30 lists cool realign tricks", NULL, NULL);
 
 	HWND hWnd;
 	if (GenerateWindow(hInstance, nCmdShow, "Drawing Sprites", "Drawing a PNG Image as a Sprite", 1280, 720, hWnd))
 	{
 		MSG msg;
-		GraphicsDevice *gDevice = new GraphicsDevice();
-		gDevice->Initialize(hWnd, true);
+		game = new Game();
 
-		player = new GameSprite(100,200);
-		player2 = new GameSprite(80, 200);
-		if (player->Initialize(gDevice->device, "PlayerPaper.png", 58, 86) 
-			&& player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
+		if (game->Initialize(hWnd))
 		{
 			while (true)
 			{
@@ -56,17 +45,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				if (msg.message == WM_QUIT) break;
 				else
 				{
-					//Update and draw our game (written after creating GraphicsDevice class)
-					Update(0.0f);
-					Draw(gDevice, 0.0f);
+					game->Run();
 				}
 			}
 
-			//	Added this line in tutorial 2
-			delete gDevice;
-			delete player;
-			delete player2;
-
+			delete game;
 			return msg.wParam;
 		}
 	}
@@ -114,32 +97,11 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 	switch (message)
 	{
 	case WM_DESTROY:
-		{
-			PostQuitMessage(0);
-			return 0;
-		}break;
+	{
+		PostQuitMessage(0);
+		return 0;
+	}break;
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
-}
-
-void Update(float gameTime)
-{
-	//	Update our sprites and other game logic
-}
-
-void Draw(GraphicsDevice *gDevice, float gameTime)
-{
-	//	Clear, Begin and Present in that order
-	gDevice->Clear(D3DCOLOR_XRGB(0, 100, 100));
-	gDevice->Begin();
-
-	//	Draw logic here
-	if (player && player->IsInitialized())
-		player->Draw(gameTime);
-	if (player2 && player2->IsInitialized())
-		player2->Draw(gameTime);
-
-	gDevice->End();
-	gDevice->Present();
 }

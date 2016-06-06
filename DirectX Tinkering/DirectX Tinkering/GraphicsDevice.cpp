@@ -22,7 +22,7 @@ GraphicsDevice::~GraphicsDevice()
 	}
 }
 
-void GraphicsDevice::Initialize(HWND hWnd, bool windowed)
+bool GraphicsDevice::Initialize(HWND hWnd, bool windowed)
 {
 	//  Create the Direct 3D Pointer.  Tells it which version to use
 	direct3d = Direct3DCreate9(D3D_SDK_VERSION);
@@ -43,10 +43,15 @@ void GraphicsDevice::Initialize(HWND hWnd, bool windowed)
 	//	D3DADAPTER_DEFAULT = Primary display adapter (default graphics card)
 	//	D3DDEVTYPE_HAL = Hardware rasterization
 	//	D3DCREATE_MIXED_VERTEXPROCESSING = Uses both hardware and software for 3D calculations
-	direct3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+	if (!SUCCEEDED(direct3d->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
 		D3DCREATE_MIXED_VERTEXPROCESSING, &presentationParams,
-		&device);
-}void GraphicsDevice::Clear(D3DCOLOR color)
+		&device)))
+	{
+		return false;
+	}
+	return true;
+}
+void GraphicsDevice::Clear(D3DCOLOR color)
 {
 	//	2nd param is set to 'NULL' so that it clears the entire back buffer
 	device->Clear(0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0);
