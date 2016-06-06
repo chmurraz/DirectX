@@ -56,6 +56,22 @@ void Game::Run()
 
 void Game::Update(float gameTime)
 {
+	//	Tutorial 10:  Use GetASyncKeyState in Game::Update() if your game only has a few keys to be pressed (for a simple shooter, for example)
+	//	Otherwise, use GetKeyboardState() function for more complicated inputs in its own class
+	
+	if (GetAsyncKeyState(VK_ESCAPE))
+	{
+		PostQuitMessage(0);
+	}
+
+	//	If "c" key was pressed, for example...
+	if (GetAsyncKeyState(67))
+	{
+		std::string message = "C key is pressed";
+		MessageBox(NULL, message.c_str(), NULL, NULL);
+	}
+
+	//	Get our sprites and other game logic
 	if (player)
 		player->Update(gameTime);
 	if (player2)
