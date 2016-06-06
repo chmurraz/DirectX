@@ -15,6 +15,7 @@ public:
 	~GamePlayObject();
 
 	virtual bool Initialize(LPDIRECT3DDEVICE9 device, std::string file, int width, int height);
+	virtual void HandleInput();
 	virtual void Update(float gameTime);
 	virtual void Draw(float gameTime);
 

@@ -21,7 +21,7 @@ public:
 private:
 	GraphicsDevice *gDevice;
 	GamePlayObject *player;
-	GamePlayObject *player2;
+	//GamePlayObject *player2;
 
 	GameTime *gameTime;
 };

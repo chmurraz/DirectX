@@ -10,7 +10,7 @@ Game::~Game()
 {
 	//	Destructor
 	if (player)	{ delete player; player = 0; }
-	if (player2) { delete player2; player2 = 0; }
+	//if (player2) { delete player2; player2 = 0; }
 	if (gDevice) { delete gDevice; gDevice = 0; }
 }
 
@@ -23,17 +23,17 @@ bool Game::Initialize(HWND hWnd)
 	}
 
 	//	Final two arguments are based on number of pixels per second
-	player = new GamePlayObject(100, 200, (float)M_PI_4, 90.0f, 90.0f);
+	player = new GamePlayObject(100, 200, (float)M_PI_4, 1000.0f, 2000.0f);
 	if (!player->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
 	}
 
-	player2 = new GamePlayObject(80, 200, 0, 180.0f, 180.0f);
-	if (!player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
-	{
-		return false;
-	}
+	//player2 = new GamePlayObject(80, 200, 0, 180.0f, 180.0f);
+	//if (!player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
+	//{
+	//	return false;
+	//}
 
 	gameTime = new GameTime();
 	if (!gameTime->Initialize())
@@ -73,9 +73,13 @@ void Game::Update(float gameTime)
 
 	//	Get our sprites and other game logic
 	if (player)
+	{
+		player->HandleInput();
 		player->Update(gameTime);
-	if (player2)
-		player2->Update(gameTime);
+	}
+
+	//if (player2)
+	//	player2->Update(gameTime);
 }
 
 void Game::Draw(float gameTime)
@@ -87,8 +91,8 @@ void Game::Draw(float gameTime)
 	//	Draw logic here
 	if (player)
 		player->Draw(gameTime);
-	if (player2)
-		player2->Draw(gameTime);
+	//if (player2)
+	//	player2->Draw(gameTime);
 
 	gDevice->End();
 	gDevice->Present();

@@ -53,6 +53,35 @@ bool GamePlayObject::Initialize(LPDIRECT3DDEVICE9 device, std::string file, int 
 	}
 }
 
+void GamePlayObject::HandleInput()
+{
+	//	Determines which direction we are moving
+	D3DXVECTOR3 movementVector(0, 0, 0);
+
+	if (GetAsyncKeyState(VK_UP))
+		movementVector.y -= 1;		//	up is negative y
+	if (GetAsyncKeyState(VK_DOWN))
+		movementVector.y += 1;		//	down is positive y
+	if (GetAsyncKeyState(VK_LEFT))
+		movementVector.x -= 1;		//	left is negative x
+	if (GetAsyncKeyState(VK_RIGHT))
+		movementVector.x += 1;		//	right is positive y
+
+	if (movementVector.x != 0 || movementVector.y != 0)
+	{
+		//	If we are moving, calculate the angle we are moving at
+		float angle = atan2(movementVector.y, movementVector.x);		//	Atan2 operates in all four quadrants
+
+		velocity.x = speed * cos(angle);
+		velocity.y = speed * sin(angle);
+	}
+	else
+	{
+		velocity.x = 0;
+		velocity.y = 0;
+	}
+}
+
 void GamePlayObject::Update(float gameTime)
 {
 	if (status == ObjectStatus::Active)
