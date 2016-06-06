@@ -7,19 +7,14 @@
 class GameSprite
 {
 public:
-	//	Attributes
-	D3DXVECTOR3 velocity;
-
 	//	Constructor and Destructor
 	GameSprite();
-	GameSprite(float x, float y);
 	~GameSprite();
 
 	//	Sprite functions
 	bool Initialize(LPDIRECT3DDEVICE9 device, std::string file, int width, int height);
 	bool IsInitialized();
-	virtual void Update(float gameTime);
-	virtual void Draw(float gameTime);
+	virtual void Draw(float gameTime, D3DXVECTOR3 position);
 
 private:
 
@@ -27,7 +22,7 @@ private:
 	LPDIRECT3DTEXTURE9 tex;
 	LPD3DXSPRITE sprite;
 
-	D3DXVECTOR3 position;
+	//	Attributes
 	D3DCOLOR color;
 	bool initialized;
 

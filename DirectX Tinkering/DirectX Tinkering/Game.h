@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "GraphicsDevice.h"
-#include "GameSprite.h"
+#include "GamePlayObject.h"
 
 class Game
 {
@@ -19,8 +19,8 @@ public:
 
 private:
 	GraphicsDevice *gDevice;
-	GameSprite *player;
-	GameSprite *player2;
+	GamePlayObject *player;
+	GamePlayObject *player2;
 };
 
 #endif	/*	GAME_H	*/

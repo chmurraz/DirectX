@@ -2,25 +2,6 @@
 
 GameSprite::GameSprite()
 {
-	//	Default the sprite to position (0,0,0)
-	position.x = 0;
-	position.y = 0;
-	position.z = 0;
-	
-	//	When the color is set to white, what you see is exactly what the image looks like
-	color = D3DCOLOR_ARGB(255, 255, 255, 255);	//	White and 100% visible
-
-	//	We are not initialized yet
-	initialized = false;
-}
-
-GameSprite::GameSprite(float x, float y)
-{
-	//	Set the position to (x,y) and default z = 0
-	position.x = x;
-	position.y = y;
-	position.z = 0;
-
 	//	When the color is set to white, what you see is exactly what the image looks like
 	color = D3DCOLOR_ARGB(255, 255, 255, 255);	//	White and 100% visible
 
@@ -73,14 +54,7 @@ bool GameSprite::IsInitialized()
 	return initialized;
 }
 
-void GameSprite::Update(float gameTime)
-{
-	position.x += velocity.x;
-	position.y += velocity.y;
-	//	No need to update z since it is a 2D game
-}
-
-void GameSprite::Draw(float gameTime)
+void GameSprite::Draw(float gameTime, D3DXVECTOR3 position)
 {
 	//	if the pointers for the sprite and texture exist, then
 	if (sprite && tex)

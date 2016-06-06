@@ -111,12 +111,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GamePlayObject.cpp" />
     <ClCompile Include="GameSprite.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GamePlayObject.h" />
     <ClInclude Include="GameSprite.h" />
     <ClInclude Include="GraphicsDevice.h" />
   </ItemGroup>

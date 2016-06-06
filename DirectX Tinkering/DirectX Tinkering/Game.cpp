@@ -1,7 +1,5 @@
 #include "Game.h"
 
-
-
 Game::Game()
 {
 	//	Constructor
@@ -24,24 +22,18 @@ bool Game::Initialize(HWND hWnd)
 		return false;
 	}
 
-	player = new GameSprite(100, 200);
+	player = new GamePlayObject(100, 200, (float)M_PI_4, 1.5f, 1.5f);
 	if (!player->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
 	}
 
-	player->velocity.x = 2;
-	player->velocity.y = 1;
-
-	player2 = new GameSprite(80, 200);
+	player2 = new GamePlayObject(80, 200, 0, 1.5f, 1.5f);
 	if (!player2->Initialize(gDevice->device, "PlayerPaper.png", 58, 86))
 	{
 		return false;
 	}
-
-	player2->velocity.x = 4;
-	player2->velocity.y = -1;
-
+	
 	//	If all are successful, return true.  Determines if game is properly initialized
 	return true;
 }
@@ -70,9 +62,9 @@ void Game::Draw(float gameTime)
 	gDevice->Begin();
 
 	//	Draw logic here
-	if (player && player->IsInitialized())
+	if (player)
 		player->Draw(gameTime);
-	if (player2 && player2->IsInitialized())
+	if (player2)
 		player2->Draw(gameTime);
 
 	gDevice->End();
